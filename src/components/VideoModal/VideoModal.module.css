@@ -1,0 +1,36 @@
+/* هذا الكود يغير لون الأرضية الأساسية للموقع فقط */
+
+/* الحالة 1: الوضع الداكن (الافتراضي) */
+body.dark-theme {
+    background-color: #0f1113 !important; 
+}
+
+/* الحالة 2: الوضع الفاتح (تغيير الخلفية فقط) */
+body.light-theme {
+    background-color: #ffffff !important; 
+}
+
+/* تنعيم عملية الانتقال للخلفية فقط */
+body {
+    transition: background-color 0.5s ease-in-out;
+}
+
+/* تنسيق الزر ليبقى ظاهراً دوماً */
+#themeBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #4edcc5 0%, #3b82f6 100%);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
