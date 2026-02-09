@@ -6,8 +6,7 @@ const Footer = () => {
     return (
         <>
             <footer className="footer-style4 v2">
-                {/* قسم الـ CTA العلوي - مهم جداً للتحويل حسب المخطط */}
-                <div className="footer-top4">
+                 <div className="footer-top4">
                     <div className="container">
                         <div className="footer-content4">
                             <h2 className="title">{t("Ready to build something intelligent?")}</h2>
@@ -23,11 +22,10 @@ const Footer = () => {
                 <div className="widget-area ibt-section-gapTop">
                     <div className="container">
                         <div className="row">
-                            {/* القسم الأول: اللوجو والحقوق */}
-                            <div className="col-lg-4">
+                             <div className="col-lg-4">
                                 <div className="about-widget4 footer-widget">
                                     <div className="footer-logo">
-                                        <img src="assets/images/logo/WizLogo.png" // تأكد من مسار لوجو WIZ
+                                        <img src="assets/images/logo/WizLogo.png" 
                                             alt="WIZ Engineering" />
                                     </div>
  
@@ -39,8 +37,7 @@ const Footer = () => {
 
                             <div className="col-lg-8">
                                 <div className="footer-menu4">
-                                    {/* القسم الثاني: المواقع (المخطط يشير لتركيز عالمي) */}
-                                    <div className="location-widget4 footer-widget">
+                                     <div className="location-widget4 footer-widget">
                                         <h4 className="widget-title">{t("Headquarters")}</h4>
                                         <p>{t("Dubai, United Arab Emirates")}<br />
                                             {t("Tech Hub, Silicon Oasis")}</p>
@@ -54,8 +51,7 @@ const Footer = () => {
                                         </ul>
                                     </div>
 
-                                    {/* القسم الثالث: التواصل المباشر */}
-                                    <div className="contact-widget4 footer-widget">
+                                     <div className="contact-widget4 footer-widget">
                                         <h4 className="widget-title">{t("Let's Talk")}</h4>
                                         <a href="tel:+971XXXXXXXXX" className="nmbr">+971 XX XXX XXXX</a>
 
@@ -63,8 +59,7 @@ const Footer = () => {
                                         <a href="mailto:hello@wiz.engineering" className="gmail">hello@wiz.engineering</a>
                                     </div>
 
-                                    {/* القسم الرابع: روابط سريعة (اختياري ولكن مفيد) */}
-                                    <div className="footer-links footer-widget">
+                                     <div className="footer-links footer-widget">
                                         <h4 className="widget-title">{t("Expertise")}</h4>
                                         <ul>
                                             <li><a href="/platforms">{t("Our Platforms")}</a></li>

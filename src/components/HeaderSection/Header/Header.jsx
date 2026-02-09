@@ -6,7 +6,7 @@ import { Link, NavLink, useLocation, useNavigate, useParams } from "react-router
 
 const Header = () => {
     const { t, i18n } = useTranslation();
-    const { lang } = useParams(); // جلب اللغة من الرابط
+    const { lang } = useParams();  
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -14,8 +14,7 @@ const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const headerRef = useRef(null);
 
-    // تحديث اللغة بناءً على المتغير الموجود في الرابط (URL)
-    useEffect(() => {
+     useEffect(() => {
         if (lang && i18n.language !== lang) {
             i18n.changeLanguage(lang);
         }
@@ -28,8 +27,7 @@ const Header = () => {
         document.documentElement.lang = currentLng;
     }, [lang, i18n]);
 
-    // وظيفة تغيير اللغة وتحديث الرابط
-    const changeLanguage = (langCode, langText) => {
+     const changeLanguage = (langCode, langText) => {
         const pathArray = location.pathname.split('/');
         pathArray[1] = langCode; // استبدال كود اللغة في الرابط
         const newPath = pathArray.join('/');
@@ -37,12 +35,11 @@ const Header = () => {
         i18n.changeLanguage(langCode);
         setCurrentLang(langText);
         localStorage.setItem('i18nextLng', langCode);
-        navigate(newPath); // الانتقال للرابط الجديد باللغة المختارة
+        navigate(newPath);  
         setMobileMenuOpen(false);
     };
 
-    // إغلاق القائمة عند الضغط خارجها
-    useEffect(() => {
+     useEffect(() => {
         const handleClickOutside = (event) => {
             if (headerRef.current && !headerRef.current.contains(event.target)) {
                 setMobileMenuOpen(false);
@@ -52,8 +49,7 @@ const Header = () => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    // دالة مساعدة لإنشاء روابط تتضمن اللغة الحالية
-    const getLangPath = (path) => `/${lang || i18n.language}${path === '/' ? '' : path}`;
+     const getLangPath = (path) => `/${lang || i18n.language}${path === '/' ? '' : path}`;
 
     return (
         <>
@@ -62,14 +58,11 @@ const Header = () => {
             <header className="vs-header13" ref={headerRef}>
                 <div className="container2">
                     <div className="header-menu-area3">
-                        {/* استخدام flexbox لضمان بقاء العناصر على سطر واحد وعدم تداخلها */}
-                        <div className="header-main-row">
+                         <div className="header-main-row">
 
-                            {/* الشعار - محمي بحاوية تمنع تمدده */}
-                            {/* الشعار - تم تعديل الرابط ليتبع اللغة الحالية */}
+ 
                             <div className="logo-container">
-                                {/* نستخدم i18n.language لضمان جلب اللغة الحالية المسجلة في النظام */}
-                                <Link to={`/${i18n.language || 'en'}`}>
+                                 <Link to={`/${i18n.language || 'en'}`}>
                                     <img
                                         src="assets/images/logo/WizLogo.png"
                                         alt="logo"
@@ -79,11 +72,9 @@ const Header = () => {
                                 </Link>
                             </div>
 
-                            {/* القائمة الرئيسية - تظهر كـ UL في الكبير و Sidebar في الصغير */}
-                            <nav className={`main-nav-container ${mobileMenuOpen ? 'mobile-menu-open' : ''}`}>
+                             <nav className={`main-nav-container ${mobileMenuOpen ? 'mobile-menu-open' : ''}`}>
                                 <ul className="nav-menu-list">
-                                    {/* رابط الصفحة الرئيسية يجب أن يوجه إلى كود اللغة الحالية */}
-                                    <li>
+                                     <li>
                                         <NavLink to={`/${lang || 'en'}`} end onClick={() => setMobileMenuOpen(false)}>
                                             {t('Home')}
                                         </NavLink>
@@ -123,8 +114,7 @@ const Header = () => {
                                 </ul>
                             </nav>
 
-                            {/* أدوات الهيدر (اللغة) للشاشات الكبيرة */}
-                            <div className="desktop-actions">
+                             <div className="desktop-actions">
                                 <div className="dropdown">
                                     <button className="lang-switcher-capsule dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                         <i className="fa fa-globe"></i>
@@ -141,8 +131,7 @@ const Header = () => {
                                 </div>
                             </div>
 
-                            {/* زر الهامبرغر - يظهر عند 800px */}
-                            <button
+                             <button
                                 className={`hamburger-menu-icon ${mobileMenuOpen ? 'active' : ''}`}
                                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             >

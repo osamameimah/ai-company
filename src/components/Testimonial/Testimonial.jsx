@@ -3,8 +3,7 @@ import { useTranslation } from "react-i18next";
 const Testimonial = () => {
     const { t } = useTranslation();
 
-    // بيانات الإحصائيات بناءً على هوية WIZ التقنية
-    const stats = [
+     const stats = [
         {
             number: "150k+",
             label: t("Daily Transactions"),
@@ -46,7 +45,7 @@ const Testimonial = () => {
                                 <h3 style={{ 
                                     fontSize: '48px', 
                                     fontWeight: 'bold', 
-                                    color: '#000', // أو لون برند WIZ
+                                    color: '#000',  
                                     marginBottom: '10px' 
                                 }}>
                                     {stat.number}

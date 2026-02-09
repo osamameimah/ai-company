@@ -9,8 +9,7 @@ const MobileMenu = () => {
                 <button id="mobileCloseBtn2" className="close-btn"></button>
             </div>
             <ul>
-                {/* تم تبسيط القائمة لتشمل فقط الصفحات الأساسية لشركة Wiz */}
-                <li><a href="/">{t('nav_home')}</a></li>
+                 <li><a href="/">{t('nav_home')}</a></li>
                 <li><a href="/services">{t('nav_services')}</a></li>
                 <li><a href="/products">{t('nav_products')}</a></li>
                 <li><a href="/case-studies">{t('nav_case_studies')}</a></li>

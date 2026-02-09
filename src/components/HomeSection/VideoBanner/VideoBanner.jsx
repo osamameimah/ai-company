@@ -6,8 +6,7 @@ const VideoBanner = () => {
     
     const openVideo = (e) => {
         e.preventDefault();
-        // هنا يمكنك إضافة منطق فتح الـ Popup (مثل react-modal-video)
-        window.open("https://www.youtube.com/watch?v=aircAruvnKk", "_blank");
+         window.open("https://www.youtube.com/watch?v=aircAruvnKk", "_blank");
     };
 
     return (

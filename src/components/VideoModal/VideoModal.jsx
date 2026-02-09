@@ -2,8 +2,7 @@ import React from 'react';
 import { useTheme } from '../../ThemeContext/ThemeContext';
 
 const VideoModal = () => {
-    // جلب الحالة والوظيفة مباشرة من الـ Context
-    const { isDarkMode, toggleTheme } = useTheme();
+     const { isDarkMode, toggleTheme } = useTheme();
 
     return (
         <>

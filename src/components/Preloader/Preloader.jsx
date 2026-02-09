@@ -4,8 +4,7 @@ const Preloader = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // هذا الكود يتأكد من اختفاء اللوذر بعد تحميل كامل عناصر الصفحة
-        const handleLoad = () => {
+         const handleLoad = () => {
             setLoading(false);
         };
 
@@ -15,12 +14,10 @@ const Preloader = () => {
             window.addEventListener('load', handleLoad);
         }
 
-        // تنظيف الحدث (Cleanup)
-        return () => window.removeEventListener('load', handleLoad);
+         return () => window.removeEventListener('load', handleLoad);
     }, []);
 
-    // إذا انتهى التحميل، لا تعرض شيئاً
-    if (!loading) return null;
+     if (!loading) return null;
 
     return (
         <div id="preloader">

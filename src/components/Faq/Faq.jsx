@@ -72,12 +72,10 @@ const Faq = () => {
                             </div>
 
                             <div className="mt-4">
-                                {/* تم تعديل الكلاس هنا لإزالة الاستايل القديم واستخدام الكلاس الجديد */}
-                                <a href="/services" className="btn-capabilities">
+                                 <a href="/services" className="btn-capabilities">
                                     <span>{t("View Our Capabilities")}</span>
                                     <i className="fa-thin fa-arrow-up-right ms-3"></i> 
-                                    {/* تأكد من استخدام أيقونة السهم المائل */}
-                                </a>
+                                 </a>
                             </div>
                         </div>
                     </div>

@@ -22,8 +22,7 @@ const SideMenu = () => {
                         <span>{t('btn_get_in_touch')}</span>
                     </a>
                 </div>
-                {/* يمكنك لاحقاً إضافة روابط السوشيال ميديا الحقيقية هنا */}
-            </div>
+             </div>
         </div>
     );
 }

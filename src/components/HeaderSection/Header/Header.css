@@ -1,5 +1,4 @@
-/* --- ضبط توزيع الهيدر الأساسي --- */
-.header-main-row {
+ .header-main-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -7,27 +6,24 @@
     padding: 10px 0;
 }
 
-/* --- التحكم في الشعار (منع الكبر المفاجئ) --- */
-.logo-container {
-    flex-shrink: 0; /* يمنع الشعار من الانضغاط */
+ .logo-container {
+    flex-shrink: 0;  
     z-index: 1002;
 }
 
 .main-logo {
-    width: 130px; /* حجم ثابت ومثالي للشاشات الكبيرة */
+    width: 130px;  
     height: auto;
     transition: width 0.3s ease;
 }
 
-/* عند النزول تحت 1201px وحتى الموبايل، نتحكم في حجمه ليبقى متناسقاً */
-@media (max-width: 1201px) {
+ @media (max-width: 1201px) {
     .main-logo {
-        width: 110px; /* حجم أصغر قليلاً ليناسب الشاشات المتوسطة */
+        width: 110px;  
     }
 }
 
-/* --- القائمة في الشاشات الكبيرة (أكبر من 800px) --- */
-@media (min-width: 801px) {
+ @media (min-width: 801px) {
     .hamburger-menu-icon, .mobile-only-item {
         display: none !important;
     }
@@ -49,8 +45,7 @@
     }
 }
 
-/* --- ستايل الموبايل (800px وأقل) --- */
-@media (max-width: 800px) {
+ @media (max-width: 800px) {
     .desktop-actions { display: none; }
 
     .hamburger-menu-icon {
@@ -104,13 +99,11 @@
     }
 }
 
-/* زر الهامبرغر يتحول لـ X */
-.hamburger-menu-icon.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+ .hamburger-menu-icon.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
 .hamburger-menu-icon.active span:nth-child(2) { opacity: 0; }
 .hamburger-menu-icon.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-/* طبقة الإغلاق عند الضغط بالخارج */
-.menu-overlay {
+ .menu-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -124,8 +117,7 @@
 }
 .menu-overlay.active { visibility: visible; opacity: 1; }
 
-/* ستايل كبسولة اللغة */
-.lang-switcher-capsule {
+ .lang-switcher-capsule {
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.2);
     border-radius: 50px;

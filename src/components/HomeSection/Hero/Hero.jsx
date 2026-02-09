@@ -5,16 +5,14 @@ import Typewriter from 'typewriter-effect';
 const Hero = () => {
     const { t, i18n } = useTranslation();
 
-    // التحقق من اتجاه اللغة (لضمان ظهور علامات الترقيم في مكانها الصحيح)
-    const isRtl = i18n.language === 'ar';
+     const isRtl = i18n.language === 'ar';
 
     return (
         <>
             <div className="hero-style13">
                 <div className="container">
                     <div className="hero-content13" style={{ textAlign: "center" }}>
-                        {/* العنوان الرئيسي باللون الأبيض وفي المنتصف */}
-                        <h1 className="title" style={{ color: 'white', textAlign: 'center' }}>
+                         <h1 className="title" style={{ color: 'white', textAlign: 'center' }}>
                             {t("Transform Your Business WIZLY")}
                         </h1>
 
@@ -25,8 +23,7 @@ const Hero = () => {
                                 marginBottom: '30px', 
                                 color: 'white', 
                                 fontSize: '1.2rem',
-                                // الحل هنا: الاتجاه يتغير للغة ولكن المحاذاة تبقى في المنتصف دائماً
-                                direction: isRtl ? 'rtl' : 'ltr',
+                                 direction: isRtl ? 'rtl' : 'ltr',
                                 textAlign: 'center', 
                                 display: 'flex',
                                 justifyContent: 'center'
@@ -59,8 +56,7 @@ const Hero = () => {
                 </div>
             </div>
 
-            {/* ستايل لضمان اللون الأبيض للمؤشر والنص في كل الحالات */}
-            <style dangerouslySetInnerHTML={{ __html: `
+             <style dangerouslySetInnerHTML={{ __html: `
                 .Typewriter__wrapper {
                     color: white !important;
                 }

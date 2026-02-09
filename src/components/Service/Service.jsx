@@ -51,10 +51,7 @@ const Service = () => {
                         </div>
                         <div className="col-lg-5">
                             <div className="sec-btn-box">
-                                {/* <div className="slider-btn5">
-                                    <div ref={prevRef} className="swiper-button-prev"></div>
-                                    <div ref={nextRef} className="swiper-button-next"></div>
-                                </div> */}
+             
                             </div>
                         </div>
                     </div>
@@ -65,7 +62,7 @@ const Service = () => {
                 <Swiper
                     modules={[Navigation, Autoplay]}
                     spaceBetween={30}
-                    slidesPerView={3} // تم التعديل لـ 3 ليناسب عدد المنصات بشكل أفضل
+                    slidesPerView={3}  
                     loop={true}
                     autoplay={{ delay: 4000 }}
                     speed={100}

@@ -6,8 +6,7 @@ import { useTranslation } from 'react-i18next';
 const Partners = () => {
     const { t } = useTranslation();
     
-    // قائمة الشركات التي تعكس قوة WIZ (يمكنك تغيير الأسماء لاحقاً لأسماء شركاء حقيقيين)
-    const brandLogos = [
+     const brandLogos = [
         "brand1.png", "brand2.png", "brand3.png", 
         "brand4.png", "brand5.png", "brand6.png"
     ];
@@ -15,8 +14,7 @@ const Partners = () => {
     return (
         <section className="partners-sec ibt-section-gapBottom" style={{ paddingBottom: '80px' }}>
             <div className="container">
-                {/* رأس السكشن - تم تعديل النصوص لتناسب WIZ */}
-                <div className="sec-title text-center" style={{ marginBottom: '50px' }}>
+                 <div className="sec-title text-center" style={{ marginBottom: '50px' }}>
                     <h2 className="title animated-heading">
                         {t("Trusted by Industry")} <span>{t("Leaders")}</span>
                     </h2>
@@ -31,9 +29,9 @@ const Partners = () => {
                         spaceBetween={40} 
                         slidesPerView={5} 
                         loop={true} 
-                        speed={1500} // سرعة انسيابية أكثر هدوءاً
+                        speed={1500}  
                         autoplay={{
-                            delay: 1, // تجعل الحركة تبدو كأنها شريط سينمائي مستمر
+                            delay: 1,  
                             disableOnInteraction: false,
                         }}
                         breakpoints={{
@@ -46,7 +44,7 @@ const Partners = () => {
                         {brandLogos.map((logo, index) => (
                             <SwiperSlide key={index}>
                                 <div className="brand-item" style={{ 
-                                    filter: 'grayscale(100%)', // جعل الشعارات رمادية لتعطي طابعاً رسمياً فخماً
+                                    filter: 'grayscale(100%)',  
                                     opacity: '0.7',
                                     transition: '0.3s'
                                 }}

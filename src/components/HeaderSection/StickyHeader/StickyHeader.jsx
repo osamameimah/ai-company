@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next"; // تأكد من استيراد الترجملة
+import { useTranslation } from "react-i18next";  
 
 const StickHeader = () => {
     const { t } = useTranslation();
@@ -20,40 +20,35 @@ const StickHeader = () => {
                     <div className="col-auto">
                         <nav className="main-menu menu-style1">
                             <ul>
-                                {/* الصفحة الرئيسية [cite: 3] */}
-                                <li>
+                                 <li>
                                     <a href="/">
                                         <span className="menu-item">{t('nav_home')}</span>
                                         <span className="menu-item2">{t('nav_home')}</span>
                                     </a>
                                 </li>
 
-                                {/* الخدمات والتقنيات [cite: 7] */}
-                                <li>
+                                 <li>
                                     <a href="/services">
                                         <span className="menu-item">{t('nav_services')}</span>
                                         <span className="menu-item2">{t('nav_services')}</span>
                                     </a>
                                 </li>
 
-                                {/* المنتجات والمنصات [cite: 11] */}
-                                <li>
+                                 <li>
                                     <a href="/products">
                                         <span className="menu-item">{t('nav_products')}</span>
                                         <span className="menu-item2">{t('nav_products')}</span>
                                     </a>
                                 </li>
 
-                                {/* دراسات الحالة [cite: 15] */}
-                                <li>
+                                 <li>
                                     <a href="/case-studies">
                                         <span className="menu-item">{t('nav_case_studies')}</span>
                                         <span className="menu-item2">{t('nav_case_studies')}</span>
                                     </a>
                                 </li>
 
-                                {/* اتصل بنا [cite: 18] */}
-                                <li>
+                                 <li>
                                     <a href="/contact">
                                         <span className="menu-item">{t('nav_contact')}</span>
                                         <span className="menu-item2">{t('nav_contact')}</span>

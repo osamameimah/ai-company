@@ -50,10 +50,10 @@ const ScienceLab = () => {
                                 options={{
                                     strings: [`${t("Empowering businesses")} ${t("with smart IT solutions")}`],
                                     autoStart: true,
-                                    loop: false, // النص سيكتب مرة واحدة فقط ويتوقف
+                                    loop: false,  
                                     delay: 50,
-                                    cursor: "", // إخفاء المؤشر بعد الانتهاء (اختياري)
-                                    deleteSpeed: Infinity, // منع الحذف نهائياً
+                                    cursor: "",  
+                                    deleteSpeed: Infinity,  
                                 }}
                             />
                         )}
