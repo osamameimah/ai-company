@@ -14,7 +14,7 @@ const ScienceLab = () => {
                     setIsVisible(true);
                 }
             },
-            { threshold: 0.2 }
+            { threshold: 0.1 }
         );
 
         if (sectionRef.current) {
@@ -29,51 +29,56 @@ const ScienceLab = () => {
     return (
         <div className="science-lab2 ibt-section-gapBottom">
             <div className="container-fluid">
-                <div className="science-content2 text-center" style={{ display: 'flex', justifyContent: 'center' }}>
-                    <h2 
-                        ref={sectionRef} 
-                        className="responsive-title" 
-                        style={{ 
-                            color: 'white', 
-                            direction: isRtl ? 'rtl' : 'ltr',
-                            textAlign: 'center',
-                            display: 'inline-flex',
-                            gap: '5px',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <span style={{ color: 'white' }}>[</span>
-                        
+                <div className="science-content2" ref={sectionRef}>
+                    <h2 className="title" style={{ direction: isRtl ? 'rtl' : 'ltr', color: 'white' }}>
+
                         {isVisible && (
                             <Typewriter
                                 key={i18n.language}
+                                onInit={(typewriter) => {
+                                    typewriter
+                                        .typeString(`${t("[Empowering businesses")} <span style="font-weight: 500;">${t("with smart IT solutions]")}</span>`)
+                                        .start();
+                                }}
                                 options={{
-                                    strings: [`${t("Empowering businesses")} ${t("with smart IT solutions")}`],
                                     autoStart: true,
-                                    loop: false,  
-                                    delay: 50,
-                                    cursor: "",  
-                                    deleteSpeed: Infinity,  
+                                    loop: false,
+                                    delay: 40,
+                                    cursor: "|", // المؤشر يظهر هنا
+                                    wrapperClassName: "typewriter-wrapper"
                                 }}
                             />
                         )}
 
-                        <span style={{ color: 'white' }}>]</span>
                     </h2>
                 </div>
             </div>
 
-            <style dangerouslySetInnerHTML={{ __html: `
-                .Typewriter__wrapper {
-                    color: white !important;
-                }
-                /* لضمان عدم ظهور المؤشر الوامض بعد انتهاء الكتابة */
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                /* يختفي المؤشر تماماً بعد انتهاء الكتابة */
                 .Typewriter__cursor {
-                    display: none; 
+                    color: white !important;
+                    display: inline-block;
+                }
+                
+                /* إخفاء المؤشر عندما تنتهي الكتابة (بناءً على الكلاس الذي تضعه المكتبة تلقائياً) */
+                .Typewriter__cursor {
+                    animation: typewriter-cursor-fade 0.5s forwards;
+                    animation-delay: 4s; /* اضبط هذا الوقت ليتناسب مع طول جملتك */
+                }
+
+                @keyframes typewriter-cursor-fade {
+                    to { opacity: 0; display: none; }
+                }
+
+                .typewriter-wrapper {
+                    display: inline;
+                    color: white !important;
                 }
             `}} />
         </div>
     );
-};
+}
 
 export default ScienceLab;

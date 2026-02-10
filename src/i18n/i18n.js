@@ -63,8 +63,8 @@ const resources = {
       "WIZ TECH: Innovation Unleashed": "WIZ TECH: Innovation Unleashed",
       "Research per year": "Research per year",
       "Explore more": "Explore more",
-      "Empowering businesses": "Empowering businesses",
-      "with smart IT solutions": "with smart IT solutions",
+     "[Empowering businesses": "[Empowering businesses",
+      "with smart IT solutions]": "with smart IT solutions]",
       "Key benefits and competitive advantages of our service":
         "Key benefits and competitive advantages of our service",
       "The unique selling points & advantages of our service":
@@ -367,8 +367,8 @@ const resources = {
       "WIZ TECH: Innovation Unleashed": "WIZ TECH: الابتكار بلا حدود",
       "Research per year": "أبحاث سنوية",
       "Explore more": "اكتشف المزيد",
-      "Empowering businesses": "تمكين الأعمال التجارية",
-      "with smart IT solutions": "بحلول تقنية ذكية",
+      "[Empowering businesses": "تمكين الأعمال التجارية",
+      "with smart IT solutions]":"[بحلول تقنية ذكية",
       "Key benefits and competitive advantages of our service":
         "الفوائد الرئيسية والمزايا التنافسية لخدمتنا",
       "The unique selling points & advantages of our service":
@@ -670,8 +670,8 @@ const resources = {
       "WIZ TECH: Innovation Unleashed": "WIZ TECH: Καινοτομία Χωρίς Όρια",
       "Research per year": "Έρευνα ανά έτος",
       "Explore more": "Εξερευνήστε περισσότερα",
-      "Empowering businesses": "Ενδυνάμωση επιχειρήσεων",
-      "with smart IT solutions": "με έξυπνες λύσεις πληροφορικής",
+      "[Empowering businesses": "Ενδυνάμωση επιχειρήσεων",
+      "with smart IT solutions]": "με έξυπνες λύσεις πληροφορικής]" ,
       "Key benefits and competitive advantages of our service":
         "Βασικά οφέλη και ανταγωνιστικά πλεονεκτήματα της υπηρεσίας μας",
       "The unique selling points & advantages of our service":

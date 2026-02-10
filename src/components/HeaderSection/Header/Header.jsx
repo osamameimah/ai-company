@@ -14,32 +14,40 @@ const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const headerRef = useRef(null);
 
-     useEffect(() => {
+    // تحديد اللغة النشطة: الأولوية للرابط، ثم i18n، ثم الإنجليزية كخيار أخير
+    const activeLang = lang || i18n.language || 'en';
+
+    useEffect(() => {
+        // مزامنة مكتبة i18next مع اللغة الموجودة في الرابط
         if (lang && i18n.language !== lang) {
             i18n.changeLanguage(lang);
         }
 
+        // تحديث النصوص والاتجاه (RTL/LTR)
         const langMap = { 'ar': 'العربية', 'en': 'English', 'el': 'Ελληνικά' };
-        setCurrentLang(langMap[lang || i18n.language] || 'English');
+        setCurrentLang(langMap[activeLang] || 'English');
 
-        const currentLng = lang || i18n.language;
-        document.documentElement.dir = currentLng === 'ar' ? 'rtl' : 'ltr';
-        document.documentElement.lang = currentLng;
-    }, [lang, i18n]);
+        document.documentElement.dir = activeLang === 'ar' ? 'rtl' : 'ltr';
+        document.documentElement.lang = activeLang;
+    }, [lang, i18n, activeLang]);
 
-     const changeLanguage = (langCode, langText) => {
-        const pathArray = location.pathname.split('/');
-        pathArray[1] = langCode; // استبدال كود اللغة في الرابط
-        const newPath = pathArray.join('/');
+    const changeLanguage = (langCode, langText) => {
+        // استخراج المسار الحالي بدون كود اللغة (مثلاً نأخذ 'services' من '/en/services')
+        const pathSegments = location.pathname.split('/');
+        const currentPathAfterLang = pathSegments.slice(2).join('/');
+        
+        // بناء الرابط الجديد باللغة المختارة
+        const newPath = `/${langCode}/${currentPathAfterLang}`;
 
         i18n.changeLanguage(langCode);
         setCurrentLang(langText);
         localStorage.setItem('i18nextLng', langCode);
+        
         navigate(newPath);  
         setMobileMenuOpen(false);
     };
 
-     useEffect(() => {
+    useEffect(() => {
         const handleClickOutside = (event) => {
             if (headerRef.current && !headerRef.current.contains(event.target)) {
                 setMobileMenuOpen(false);
@@ -49,7 +57,8 @@ const Header = () => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-     const getLangPath = (path) => `/${lang || i18n.language}${path === '/' ? '' : path}`;
+    // دالة لضمان أن جميع الروابط تبدأ بكود اللغة الصحيح
+    const getPath = (path) => `/${activeLang}${path}`;
 
     return (
         <>
@@ -58,11 +67,10 @@ const Header = () => {
             <header className="vs-header13" ref={headerRef}>
                 <div className="container2">
                     <div className="header-menu-area3">
-                         <div className="header-main-row">
+                        <div className="header-main-row">
 
- 
                             <div className="logo-container">
-                                 <Link to={`/${i18n.language || 'en'}`}>
+                                <Link to={`/${activeLang}`}>
                                     <img
                                         src="assets/images/logo/WizLogo.png"
                                         alt="logo"
@@ -72,34 +80,34 @@ const Header = () => {
                                 </Link>
                             </div>
 
-                             <nav className={`main-nav-container ${mobileMenuOpen ? 'mobile-menu-open' : ''}`}>
+                            <nav className={`main-nav-container ${mobileMenuOpen ? 'mobile-menu-open' : ''}`}>
                                 <ul className="nav-menu-list">
-                                     <li>
-                                        <NavLink to={`/${lang || 'en'}`} end onClick={() => setMobileMenuOpen(false)}>
+                                    <li>
+                                        <NavLink to={getPath("")} end onClick={() => setMobileMenuOpen(false)}>
                                             {t('Home')}
                                         </NavLink>
                                     </li>
 
                                     <li>
-                                        <NavLink to={`/${lang || 'en'}/services`} onClick={() => setMobileMenuOpen(false)}>
+                                        <NavLink to={getPath("/services")} onClick={() => setMobileMenuOpen(false)}>
                                             {t('Services')}
                                         </NavLink>
                                     </li>
 
                                     <li>
-                                        <NavLink to={`/${lang || 'en'}/products`} onClick={() => setMobileMenuOpen(false)}>
+                                        <NavLink to={getPath("/products")} onClick={() => setMobileMenuOpen(false)}>
                                             {t('Products')}
                                         </NavLink>
                                     </li>
 
                                     <li>
-                                        <NavLink to={`/${lang || 'en'}/case-studies`} onClick={() => setMobileMenuOpen(false)}>
+                                        <NavLink to={getPath("/case-studies")} onClick={() => setMobileMenuOpen(false)}>
                                             {t('Case Studies')}
                                         </NavLink>
                                     </li>
 
                                     <li>
-                                        <NavLink to={`/${lang || 'en'}/contact`} onClick={() => setMobileMenuOpen(false)}>
+                                        <NavLink to={getPath("/contact")} onClick={() => setMobileMenuOpen(false)}>
                                             {t('Contact')}
                                         </NavLink>
                                     </li>
@@ -108,13 +116,13 @@ const Header = () => {
                                         <div className="mobile-lang-box">
                                             <button onClick={() => changeLanguage('ar', 'العربية')}>AR</button>
                                             <button onClick={() => changeLanguage('en', 'English')}>EN</button>
-                                            <button onClick={() => changeLanguage('el', 'Ελληνικά')}>Ελληνικά</button>
+                                            <button onClick={() => changeLanguage('el', 'Ελληνικά')}>EL</button>
                                         </div>
                                     </li>
                                 </ul>
                             </nav>
 
-                             <div className="desktop-actions">
+                            <div className="desktop-actions">
                                 <div className="dropdown">
                                     <button className="lang-switcher-capsule dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                         <i className="fa fa-globe"></i>
@@ -124,14 +132,11 @@ const Header = () => {
                                         <li><button className="dropdown-item" onClick={() => changeLanguage('ar', 'العربية')}>العربية</button></li>
                                         <li><button className="dropdown-item" onClick={() => changeLanguage('en', 'English')}>English</button></li>
                                         <li><button className="dropdown-item" onClick={() => changeLanguage('el', 'Ελληνικά')}>Ελληνικά</button></li>
-
-
-
                                     </ul>
                                 </div>
                             </div>
 
-                             <button
+                            <button
                                 className={`hamburger-menu-icon ${mobileMenuOpen ? 'active' : ''}`}
                                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             >

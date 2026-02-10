@@ -607,3 +607,24 @@ input:-webkit-autofill:active {
     color: #4edcc5 !important;
 }
 
+
+
+/* استهداف أي عنصر يحمل سمة اللغة العربية أو التطبيق ككل */
+:root, [lang="ar"], body {
+    font-family: 'Cairo', sans-serif !important;
+}
+
+ 
+/* لضمان أن العناوين والفقرات وكل شيء يتبع الخط الجديد */
+[lang="ar"] h1, 
+[lang="ar"] h2, 
+[lang="ar"] h3, 
+[lang="ar"] h4, 
+[lang="ar"] h5, 
+[lang="ar"] h6, 
+[lang="ar"] p, 
+[lang="ar"] span, 
+[lang="ar"] a, 
+[lang="ar"] button {
+    font-family: 'Cairo', sans-serif !important;
+}

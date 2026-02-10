@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +12,7 @@ const Partners = () => {
     ];
 
     return (
-        <section className="partners-sec ibt-section-gapBottom" style={{ paddingBottom: '80px' }}>
+        <section className="partners-sec ibt-section-gapBottom" style={{ paddingBottom: '80px', paddingTop: '100px', backgroundColor: '#ffffff' }}>
             <div className="container">
                  <div className="sec-title text-center" style={{ marginBottom: '50px' }}>
                     <h2 className="title animated-heading">
@@ -47,16 +47,7 @@ const Partners = () => {
                                     filter: 'grayscale(100%)',  
                                     opacity: '0.7',
                                     transition: '0.3s'
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.filter = 'grayscale(0%)';
-                                    e.currentTarget.style.opacity = '1';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.filter = 'grayscale(100%)';
-                                    e.currentTarget.style.opacity = '0.7';
-                                }}
-                                >
+                                }}>
                                     <a href="#" onClick={(e) => e.preventDefault()}>
                                         <img
                                             src={`assets/images/brand/${logo}`}

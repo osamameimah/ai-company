@@ -27,7 +27,7 @@ const Testimonial = () => {
     ];
 
     return (
-        <section className="testimonial-sec2" style={{ backgroundColor: '#f9f9f9' }}>
+        <section className="testimonial-sec2" style={{ backgroundColor: '#ece9e9' }}>
             <div className="container3">
                 <div className="testi-title" style={{ marginBottom: '60px' }}>
                     <h2 className="title">
@@ -53,7 +53,7 @@ const Testimonial = () => {
                                 <h4 className="name" style={{ color: '#555', marginBottom: '15px' }}>
                                     {stat.label}
                                 </h4>
-                                <p style={{ fontSize: '14px', lineHeight: '1.6' }}>
+                                <p style={{ fontSize: '14px', lineHeight: '1.6',  }}>
                                     {stat.desc}
                                 </p>
                             </div>
