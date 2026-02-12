@@ -25,7 +25,7 @@ const Footer = () => {
                              <div className="col-lg-4">
                                 <div className="about-widget4 footer-widget">
                                     <div className="footer-logo">
-                                        <img src="assets/images/logo/WizLogo.png" 
+                                        <img src="/assets/images/logo/WizLogo.png" 
                                             alt="WIZ Engineering" />
                                     </div>
  

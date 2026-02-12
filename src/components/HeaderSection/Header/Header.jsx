@@ -3,10 +3,9 @@ import "./Header.css";
 import { useEffect, useState, useRef } from "react";
 import '../../../i18n/i18n';
 import { Link, NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
-
-const Header = () => {
+ const Header = () => {
     const { t, i18n } = useTranslation();
-    const { lang } = useParams();  
+    const { lang } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -32,18 +31,21 @@ const Header = () => {
     }, [lang, i18n, activeLang]);
 
     const changeLanguage = (langCode, langText) => {
-        // استخراج المسار الحالي بدون كود اللغة (مثلاً نأخذ 'services' من '/en/services')
+        // 1. استخراج المسار الحالي (مثل /ar/admin-panel)
         const pathSegments = location.pathname.split('/');
         const currentPathAfterLang = pathSegments.slice(2).join('/');
-        
-        // بناء الرابط الجديد باللغة المختارة
-        const newPath = `/${langCode}/${currentPathAfterLang}`;
+
+        // 2. استخراج "كلمة السر" والمعاملات من الرابط الحالي (مثل ?access=123)
+        const currentSearch = location.search;
+
+        // 3. بناء الرابط الجديد مع الحفاظ على المعاملات
+        const newPath = `/${langCode}/${currentPathAfterLang}${currentSearch}`;
 
         i18n.changeLanguage(langCode);
         setCurrentLang(langText);
         localStorage.setItem('i18nextLng', langCode);
-        
-        navigate(newPath);  
+
+        navigate(newPath);
         setMobileMenuOpen(false);
     };
 
@@ -72,7 +74,7 @@ const Header = () => {
                             <div className="logo-container">
                                 <Link to={`/${activeLang}`}>
                                     <img
-                                        src="assets/images/logo/WizLogo.png"
+                                        src="/assets/images/logo/WizLogo.png"
                                         alt="logo"
                                         className="main-logo"
                                         style={{ maxHeight: "70px", width: "auto" }}
