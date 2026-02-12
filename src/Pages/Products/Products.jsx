@@ -2,17 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { db } from '../../firebaseConfig/firebaseConfig';  
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
- 
 
 const Products = () => {
     const { t, i18n } = useTranslation();
     const [productList, setProductList] = useState([]);
     const [loading, setLoading] = useState(true);
 
-     useEffect(() => {
+    useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
+                 const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
                 const querySnapshot = await getDocs(q);
                 const productsData = querySnapshot.docs.map(doc => ({
                     id: doc.id,
@@ -29,7 +28,7 @@ const Products = () => {
         fetchProducts();
     }, []);
 
-     const currentLang = i18n.language || 'en';
+    const currentLang = i18n.language || 'en';
 
     return (
         <>
@@ -62,17 +61,19 @@ const Products = () => {
                                  <div className="col-lg-6 p-0">
                                     <div style={{
                                         height: '400px',
-                                        background: `url(${product.image || '/assets/images/blog/blog2-1.png'}) center/cover`,
-                                        borderRight: index % 2 === 0 ? '1px solid #222' : 'none',
-                                        borderLeft: index % 2 !== 0 ? '1px solid #222' : 'none'
+                                         backgroundImage: `url(${product.image ? `/assets/images/products/${product.image}` : '/assets/images/blog/blog2-1.png'})`,
+                                        backgroundPosition: 'center',
+                                        backgroundSize: 'cover',
+                                        borderRight: (index % 2 === 0) ? '1px solid #222' : 'none',
+                                        borderLeft: (index % 2 !== 0) ? '1px solid #222' : 'none'
                                     }}></div>
                                 </div>
 
                                  <div className="col-lg-6 p-5">
-                                     <span style={{ color: '#007bff', fontWeight: 'bold', textTransform: 'uppercase', fontSize: '0.9rem' }}>
+                                    <span style={{ color: '#007bff', fontWeight: 'bold', textTransform: 'uppercase', fontSize: '0.9rem' }}>
                                      </span>
                                     
-                                     <h2 style={{ color: '#fff', marginTop: '10px', marginBottom: '20px' }}>
+                                    <h2 style={{ color: '#fff', marginTop: '10px', marginBottom: '20px' }}>
                                         {product[`name_${currentLang}`] || product.name_en}
                                     </h2>
                                     
@@ -80,7 +81,7 @@ const Products = () => {
                                         {product[`description_${currentLang}`] || product.description_en}
                                     </p>
 
-                                     <div className="features-list mt-4 mb-4">
+                                    <div className="features-list mt-4 mb-4">
                                         <div className="row">
                                             {product[`features_${currentLang}`] && product[`features_${currentLang}`].map((feat, i) => (
                                                 feat && (
@@ -101,9 +102,10 @@ const Products = () => {
                                     </a>
                                 </div>
                             </div>
-                        )
-                    ))}
-                    {!loading && productList.length === 0 && (
+                        ))
+                    )}
+
+                     {!loading && productList.length === 0 && (
                         <div className="text-center text-muted py-5">{t("No products found.")}</div>
                     )}
                 </div>

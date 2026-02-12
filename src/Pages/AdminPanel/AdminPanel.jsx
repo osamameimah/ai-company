@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { db, storage } from '../../firebaseConfig/firebaseConfig'; 
+import { db } from '../../firebaseConfig/firebaseConfig'; 
 import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc, serverTimestamp } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useTranslation } from 'react-i18next';
 import { useParams, useSearchParams, Navigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
- import styles from './AdminPanel.module.css';
+import styles from './AdminPanel.module.css';
 
 const AdminPanel = () => {
     const { t, i18n } = useTranslation();
@@ -21,20 +20,19 @@ const AdminPanel = () => {
     const [loading, setLoading] = useState(false);
     const [items, setItems] = useState([]);
     const [editId, setEditId] = useState(null);
-    const [imageFile, setImageFile] = useState(null);
     const [showDeleteModal, setShowDeleteModal] = useState({ show: false, id: null });
 
     const initialState = {
         products: {
             name_ar: '', name_en: '', name_el: '',
             description_ar: '', description_en: '', description_el: '',
-            image: '', 
+            image: '', // سيتم كتابة اسم الصورة يدوياً هنا (مثلاً service1.png)
             features_ar: [''], features_en: [''], features_el: ['']
         },
         services: {
             title_ar: '', title_en: '', title_el: '',
             description_ar: '', description_en: '', description_el: '',
-            icon: '',
+            icon: '', // سيتم كتابة اسم الأيقونة يدوياً هنا
             features_ar: [''], features_en: [''], features_el: ['']
         }
     };
@@ -51,7 +49,6 @@ const AdminPanel = () => {
             fetchData();
             setFormData(initialState[activeTab]);
             setEditId(null);
-            setImageFile(null);
         }
     }, [activeTab, accessKey]); 
 
@@ -66,20 +63,13 @@ const AdminPanel = () => {
         setLoading(false);
     };
 
-    const handleUpload = async () => {
-        if (!imageFile) return formData.image || "";
-        const fileRef = ref(storage, `${activeTab}/${Date.now()}_${imageFile.name}`);
-        const uploadRes = await uploadBytes(fileRef, imageFile);
-        return await getDownloadURL(uploadRes.ref);
-    };
-
     const validateForm = () => {
         const requiredFields = activeTab === 'products' 
-            ? ['name_ar', 'name_en', 'name_el'] 
-            : ['title_ar', 'title_en', 'title_el'];
+            ? ['name_ar', 'name_en', 'image'] 
+            : ['title_ar', 'title_en', 'icon'];
 
         for (let field of requiredFields) {
-            if (!formData[field] || formData[field].trim() === "") {
+            if (!formData[field] || formData[field].toString().trim() === "") {
                 toast.warning(`Please fill in: ${field.replace('_', ' ')}`);
                 return false;
             }
@@ -92,22 +82,21 @@ const AdminPanel = () => {
         if (!validateForm()) return;
         setLoading(true);
         try {
-            let imageUrl = formData.image;
-            if (activeTab === 'products' && imageFile) imageUrl = await handleUpload();
-
-            const dataToSave = { ...formData, updatedAt: serverTimestamp() };
-            if (activeTab === 'products') dataToSave.image = imageUrl;
+            const dataToSave = { 
+                ...formData, 
+                updatedAt: serverTimestamp() 
+            };
 
             if (editId) {
                 await updateDoc(doc(db, activeTab, editId), dataToSave);
-                toast.success(t('admin.update_success', 'Updated Successfully! ✨'));
+                toast.success('Updated Successfully! ✨');
             } else {
                 dataToSave.createdAt = serverTimestamp();
                 await addDoc(collection(db, activeTab), dataToSave);
-                toast.success(t('admin.add_success', 'Added Successfully! 🚀'));
+                toast.success('Added Successfully! 🚀');
             }
+            
             setEditId(null); 
-            setImageFile(null); 
             fetchData();
             setFormData(initialState[activeTab]);
         } catch (err) { 
@@ -119,7 +108,7 @@ const AdminPanel = () => {
     const confirmDelete = async () => {
         try {
             await deleteDoc(doc(db, activeTab, showDeleteModal.id));
-            toast.info(t('admin.delete_success', 'Item Deleted 🗑️'));
+            toast.info('Item Deleted 🗑️');
             fetchData();
             setShowDeleteModal({ show: false, id: null });
         } catch (error) {
@@ -140,6 +129,7 @@ const AdminPanel = () => {
             <ToastContainer theme="dark" position="top-center" autoClose={3000} />
             <div className={styles.animatedBg}></div>
 
+            {/* Modal Delete */}
             {showDeleteModal.show && (
                 <div className={styles.deleteModalOverlay}>
                     <div className={styles.deleteModalCard} style={{background:"white",color:"black"}}>
@@ -188,7 +178,7 @@ const AdminPanel = () => {
                                             <div className={styles.wizInputGroup} >
                                                 <label>{activeTab === 'products' ? t('admin.name', 'Name') : t('admin.title', 'Title')} ({l.label}) *</label>
                                                 <input 
-                                                    value={activeTab === 'products' ? formData[`name_${l.code}`] : formData[`title_${l.code}`]} 
+                                                    value={activeTab === 'products' ? (formData[`name_${l.code}`] || '') : (formData[`title_${l.code}`] || '')} 
                                                     onChange={e => setFormData({...formData, [activeTab === 'products' ? `name_${l.code}` : `title_${l.code}`]: e.target.value})}
                                                     placeholder="..." 
                                                 />
@@ -197,13 +187,34 @@ const AdminPanel = () => {
                                                 <label>{t('admin.description', 'Description')} ({l.label})</label>
                                                 <textarea 
                                                     rows="3" 
-                                                    value={formData[`description_${l.code}`]} 
+                                                    value={formData[`description_${l.code}`] || ''} 
                                                     onChange={e => setFormData({...formData, [`description_${l.code}`]: e.target.value})}
                                                     placeholder="..."
                                                 />
                                             </div>
                                         </div>
                                     ))}
+                                </div>
+
+                                {/* حقل اسم ملف الصورة - التعديل الجديد بناءً على طلب المدير */}
+                                <div className="row mb-4">
+                                    <div className="col-12">
+                                        <div className={styles.wizInputGroup} style={{border: '1px solid #007bff44', padding: '15px', borderRadius: '10px'}}>
+                                            <label style={{color: '#007bff'}}>
+                                                <i className="fas fa-image me-2"></i>
+                                                {activeTab === 'products' ? 'Product Image Filename' : 'Service Icon Filename'} (e.g., image1.png) *
+                                            </label>
+                                            <input 
+                                                style={{background: '#1a1d20', color: '#007bff', fontWeight: 'bold'}}
+                                                value={activeTab === 'products' ? formData.image : formData.icon} 
+                                                onChange={e => setFormData({...formData, [activeTab === 'products' ? 'image' : 'icon']: e.target.value})}
+                                                placeholder="Write file name exactly as in public folder..." 
+                                            />
+                                            <small className="text-muted mt-2 d-block">
+                                                Important: Copy the file to <b>/public/assets/images/{activeTab}/</b> and write its name here.
+                                            </small>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div className="mb-4">
@@ -225,7 +236,7 @@ const AdminPanel = () => {
                                                             }}>&times;</button>
                                                         </div>
                                                     ))}
-                                                    <button type="button" className={styles.addFeatLine} onClick={() => setFormData({...formData, [`features_${l.code}`]: [...formData[`features_${l.code}`], ""]})}>
+                                                    <button type="button" className={styles.addFeatLine} onClick={() => setFormData({...formData, [`features_${l.code}`]: [...(formData[`features_${l.code}`] || []), ""]})}>
                                                         + {t('admin.add_feature', 'Add Feature')}
                                                     </button>
                                                 </div>
@@ -235,10 +246,10 @@ const AdminPanel = () => {
                                 </div>
 
                                 <div className="row align-items-center g-4">
-                                    <div className="col-md-6 text-end">
-                                        <button type="submit" className={styles.wizBtnPrimary} disabled={loading}>
+                                    <div className="col-md-12 text-center">
+                                        <button type="submit" className={styles.wizBtnPrimary} disabled={loading} style={{minWidth: '200px'}}>
                                             {loading ? <span className="spinner-border spinner-border-sm me-2"></span> : <i className="fas fa-save me-2"></i>}
-                                            {editId ? t('admin.save', 'Save Changes') : t('admin.add_btn', 'Add Item')}
+                                            {editId ? t('admin.save', 'Save Changes') : t('admin.add_btn', 'Publish to Website')}
                                         </button>
                                     </div>
                                 </div>
@@ -246,10 +257,11 @@ const AdminPanel = () => {
                         </div>
                     </div>
 
+                    {/* قائمة العناصر المنشورة */}
                     <div className="col-12 mt-5">
                         <div className={styles.glassCard}>
                             <h4 className="mb-4" style={{color:"white"}}>
-                                <i className="fas fa-list me-3 text-info"></i> {t('admin.published_items', 'Published Items')}
+                                <i className="fas fa-list me-3 text-info"></i> {t('admin.published_items', 'Live on Website')}
                             </h4>
                             <div className={styles.dataGridLayout}>
                                 {items.length === 0 && !loading && <div className="col-12 text-center py-5 text-muted">No items found.</div>}
@@ -257,7 +269,7 @@ const AdminPanel = () => {
                                     <div key={item.id} className={styles.dataItemCard} >
                                         <div className={styles.itemMeta}>
                                             <h5 style={{color:"white"}}>{item[`name_${i18n.language}`] || item[`title_${i18n.language}`] || item.name_ar || "Untitled"}</h5>
-                                            <span className={styles.badgeId}>ID: {item.id.substring(0,8)}</span>
+                                            <span className={styles.badgeId}>File: {item.image || item.icon || 'No Image'}</span>
                                         </div>
                                         <div className={styles.itemControls}>
                                             <button onClick={() => { setEditId(item.id); setFormData(item); window.scrollTo({top: 0, behavior: 'smooth'}); }} className={styles.ctrlEdit}><i className="fas fa-pen"></i></button>
